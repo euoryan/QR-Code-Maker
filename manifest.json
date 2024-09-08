@@ -1,0 +1,42 @@
+{
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "manifest_version": 3,
+    "name": "QR-Code Maker",
+    "version": "0.0.3",
+    "description": "Um site, um link, um QR Code. Gere QR Codes para qualquer site de forma rápida e fácil.",
+    "icons": {
+        "16": "assets/images/logo16.png",
+        "48": "assets/images/logo48.png",
+        "128": "assets/images/logo128.png"
+    },
+    "action": {
+        "default_popup": "assets/popup/popup.html",
+        "default_icon": {
+            "16": "assets/images/logo16.png",
+            "48": "assets/images/logo48.png",
+            "128": "assets/images/logo128.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "assets/libs/qrcode.min.js",
+                "tools/qrcodecontent.js"
+            ]
+        }
+    ],
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "contextMenus"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "tools/qrcodecontent.js"
+    }
+}

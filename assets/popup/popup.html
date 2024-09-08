@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qr-Code</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Ubuntu:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Estilo Geral */
+        body {
+            margin: 0;
+            font-family: 'Ubuntu', sans-serif;
+            background-color: #ffffff;
+            color: #eeeeee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Container do Popup */
+        .popup-container {
+            width: 360px;
+            /* Ajuste de largura */
+            padding: 20px;
+            background-color: #282828;
+            /* Cor de fundo mais escura */
+            /* Bordas arredondadas */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            /* Sombra mais suave */
+            text-align: center;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        /* Título */
+        .popup-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2em;
+            /* Tamanho de fonte maior */
+            margin-bottom: -5px;
+            /* Ajuste este valor para controlar o espaço abaixo do título */
+            color: #dc3545;
+            overflow-wrap: break-word;
+        }
+
+        /* Descrição */
+        .popup-description {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1em;
+            /* Tamanho de fonte maior */
+            margin-bottom: 0px;
+            /* Espaçamento abaixo da descrição */
+            margin-top: 0px;
+            /* Ajuste este valor para controlar o espaço acima da descrição */
+            line-height: 1.6;
+            /* Melhora a legibilidade */
+            color: #eeeeee;
+            overflow-wrap: break-word;
+        }
+
+
+        /* Lista de Sites */
+        .site-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-bottom: -10px;
+            /* Ajuste este valor para controlar o espaço abaixo da lista de botões */
+        }
+
+        .site-item {
+            margin-bottom: 12px;
+            /* Espaçamento aumentado entre itens */
+        }
+
+        .site-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Centraliza o texto */
+            width: 100%;
+            padding: 12px;
+            /* Aumenta o padding para um botão mais espaçoso */
+            font-size: 1em;
+            /* Tamanho de fonte maior */
+            color: #eeeeee;
+            background-color: #333333;
+            /* Cor de fundo do botão */
+            border: 0.5px solid #dc3545;
+            border-radius: 8px;
+            /* Bordas arredondadas do botão */
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+            /* Para garantir que o ícone não ultrapasse o botão */
+        }
+
+        .site-button:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+            border-color: #dc3545;
+            /* Mantém a borda vermelha no hover */
+        }
+
+        .site-button img {
+            width: 14px;
+            /* Tamanho menor para o ícone */
+            height: 14px;
+            /* Tamanho menor para o ícone */
+            transition: filter 0.3s;
+            filter: invert(100%);
+            /* Ícone branco */
+            margin-left: 10px;
+            /* Espaçamento entre o texto e o ícone */
+            position: absolute;
+            right: 10px;
+            /* Alinhamento à direita */
+        }
+
+        .site-button:hover img {
+            filter: invert(0%) sepia(100%) saturate(1000%) hue-rotate(0deg) brightness(100%) contrast(100%);
+            /* Ícone vermelho no hover */
+        }
+
+        /* Rodapé */
+        .footerdeveloped {
+            margin-top: 0;
+            /* Ajuste este valor para controlar a distância entre a lista de botões e o rodapé */
+            padding-top: 10px;
+            /* Ajuste este valor se necessário para controle adicional de espaço */
+            border-top: 1px solid #444;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            /* Garante que ocupa toda a largura disponível */
+        }
+
+        .footerContent {
+            display: flex;
+            justify-content: space-between;
+            /* Distribui o conteúdo entre a esquerda e a direita */
+            align-items: flex-start;
+            /* Alinha os itens no topo */
+            width: 100%;
+            /* Garante que ocupa toda a largura disponível */
+            margin-bottom: 10px;
+            /* Ajusta o espaço abaixo do "Developed by Ryan" */
+        }
+
+        .footerText {
+            font-size: 0.9em;
+            color: #b0b0b0;
+            margin-bottom: 5px;
+            /* Ajusta a margem inferior para alinhar com a versão */
+        }
+
+        .socialIcons {
+            display: flex;
+            align-items: flex-start;
+            /* Alinha os ícones com o topo do conteúdo */
+        }
+
+        .socialIcon {
+            margin-left: 15px;
+            /* Espaço entre ícones sociais */
+            transition: color 0.3s ease;
+        }
+
+        .socialIcon img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+            /* Aplica a cor branca aos ícones */
+            transition: filter 0.3s ease;
+        }
+
+        .socialIcon:hover img {
+            filter: invert(42%) sepia(73%) saturate(6430%) hue-rotate(352deg) brightness(91%) contrast(101%);
+            /* Fica vermelho #dc3545 */
+        }
+
+        .hubRyan {
+            display: flex;
+            align-items: center;
+            /* Alinha a versão e "Hub Ryan" com o topo do conteúdo */
+            font-size: 0.8em;
+            /* Tamanho da fonte ajustado */
+            color: rgba(255, 255, 255, 0.5);
+            /* Cor discreta */
+            opacity: 0.5;
+            /* Torna a frase quase invisível */
+            pointer-events: none;
+            /* Garante que não interfira com cliques */
+            margin-top: -17px;
+            /* Ajusta a margem superior para subir mais a seção */
+        }
+
+        .versionWrapper {
+            display: flex;
+            flex-direction: row;
+            /* Alinha horizontalmente */
+            align-items: center;
+            /* Alinha verticalmente ao centro */
+        }
+
+        .version {
+            display: inline-block;
+            padding: 2px 5px;
+            /* Espaço interno ajustado */
+            background-color: #dc3545;
+            /* Fundo vermelho */
+            color: #ffffff;
+            /* Texto branco */
+            border-radius: 3px;
+            /* Cantos arredondados */
+            font-weight: bold;
+            /* Destaca a versão com negrito */
+            font-size: 0.9em;
+            /* Ajuste do tamanho da versão */
+            margin-right: 5px;
+            /* Espaço entre a versão e o texto "Hub Ryan" */
+        }
+
+        .hubText {
+            font-size: 1em;
+            /* Tamanho do texto "Hub Ryan" */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="popup-container">
+        <div class="popup-title">QR-Code Maker</div>
+        <div class="popup-description">
+            Um site, um link, um QR Code ;)
+        </div>
+        <ul class="site-list">
+            <li class="site-item"><a href="https://chromewebstore.google.com/detail/qr-code-maker/khmngihmndfhgchkpphhfdinpoafoipl?authuser=0&hl=pt-BR" target="_blank" class="site-button">Extensão na Web Store<img src="https://icons.getbootstrap.com/assets/icons/box-arrow-up-right.svg"
+                        alt="Open in new tab"></a></li>
+        </ul>
+        <!-- Rodapé -->
+        <div class="footerdeveloped">
+            <div class="footerContent">
+                <span class="footerText">Developed by Ryan</span>
+                <div class="socialIcons">
+                    <a href="https://github.com/euoryan" target="_blank" class="socialIcon">
+                        <img src="https://unpkg.com/ionicons@7.1.0/dist/svg/logo-github.svg" alt="GitHub">
+                    </a>
+                    <a href="https://instagram.com/euoryan" target="_blank" class="socialIcon">
+                        <img src="https://unpkg.com/ionicons@7.1.0/dist/svg/logo-instagram.svg" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+            <div class="hubRyan">
+                <div class="versionWrapper">
+                    <span class="version" id="version">v1.1.19</span> <!-- Adicione o ID aqui -->
+                    <span class="hubText">Hub Ryan</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="version.js"></script>
+</body>
+
+</html>
